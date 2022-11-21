@@ -1,0 +1,10 @@
+<div class="flex justify-content-between mx-4 lg:mx-8">
+  <h1>Publishers</h1>
+
+  <div class="align-self-center">
+    <app-create-publisher *ngIf="isLoggedIn" (createSuccess)="loadPublishers()"></app-create-publisher>
+    <p-button styleClass="p-button-text" icon="pi pi-refresh" [disabled]="publishersLoading" (click)="loadPublishers()"></p-button>
+  </div>
+</div>
+
+<app-publishers-table [publishers]="publishers" [publishersLoading]="publishersLoading" (loadPublishers)="loadPublishers()"></app-publishers-table>

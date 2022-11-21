@@ -1,0 +1,10 @@
+<div class="flex justify-content-between mx-4 lg:mx-8">
+  <h1>Books</h1>
+
+  <div class="align-self-center">
+    <app-create-book *ngIf="isLoggedIn" (createSuccess)="loadBooks()"></app-create-book>
+    <p-button styleClass="p-button-text" icon="pi pi-refresh" [disabled]="booksLoading" (click)="loadBooks()"></p-button>
+  </div>
+</div>
+
+<app-books-table [books]="books" [booksLoading]="booksLoading" (loadBooks)="loadBooks()"></app-books-table>

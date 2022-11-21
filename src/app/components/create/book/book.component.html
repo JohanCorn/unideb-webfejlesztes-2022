@@ -1,0 +1,44 @@
+<p-button styleClass="p-button-text" icon="pi pi-plus" (click)="show()"></p-button>
+
+<p-dialog header="Create Book" styleClass="m-2 w-full lg:w-4" [(visible)]="visibleDialog"
+          [draggable]="false" [resizable]="false" [modal]="true">
+
+  <div *ngIf="book">
+    <span class="p-float-label mt-4">
+      <input id="name" type="text" class="w-full" pInputText [(ngModel)]="book.name" [disabled]="isLoading">
+      <label for="name">Name</label>
+    </span>
+
+    <span class="p-float-label mt-4">
+      <textarea id="description" class="w-full" pInputTextarea [(ngModel)]="book.description" [rows]="3" [disabled]="isLoading"></textarea>
+      <label for="description">Description</label>
+    </span>
+
+    <span class="p-float-label mt-4">
+      <input id="pages-num" type="number" class="w-full" pInputText
+             [(ngModel)]="book.pages_num" [disabled]="isLoading">
+      <label for="pages-num">Number of Pages</label>
+    </span>
+
+    <span class="p-float-label mt-4">
+      <input id="image-url" type="text" class="w-full" pInputText [(ngModel)]="book.image_link" [disabled]="isLoading">
+      <label for="image-url">Image Link</label>
+    </span>
+
+    <span class="p-float-label mt-4">
+      <input id="publish-year" type="number" class="w-full" pInputText
+             [(ngModel)]="book.publish_year" [disabled]="isLoading">
+      <label for="publish-year">Publish Year</label>
+    </span>
+
+    <p-listbox styleClass="mt-4" listStyleClass="max-h-10rem" optionLabel="name" [(ngModel)]="book.publisher"
+               [options]="publishers" [metaKeySelection]="false" [checkbox]="true" [filter]="true"
+               [disabled]="isLoading" (onChange)="book.publisher_id = $event.value?.id">
+    </p-listbox>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <p-button styleClass="p-button-text" icon="pi pi-save" label="Save"
+              [disabled]="isLoading" (click)="create()"></p-button>
+  </ng-template>
+</p-dialog>

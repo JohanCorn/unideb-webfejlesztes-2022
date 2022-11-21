@@ -1,0 +1,15 @@
+<p-button styleClass="p-button-text" icon="pi pi-trash" (click)="show()"></p-button>
+
+<p-dialog styleClass="m-2 w-full lg:w-4" header="Delete Book" [(visible)]="visibleDialog"
+          [draggable]="false" [resizable]="false" [modal]="true">
+
+  <div *ngIf="book" class="text-center">
+    <p>Do you want to Delete this Book?</p>
+    <div class="font-bold">{{ book.name }}</div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <p-button label="Yes" styleClass="p-button-text" [disabled]="isLoading" (click)="delete()"></p-button>
+    <p-button label="No" styleClass="p-button-text" (click)="this.visibleDialog = false"></p-button>
+  </ng-template>
+</p-dialog>

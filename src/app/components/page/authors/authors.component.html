@@ -1,0 +1,11 @@
+<div class="flex justify-content-between mx-4 lg:mx-8">
+  <h1>Authors</h1>
+
+  <div class="align-self-center">
+
+    <app-create-author *ngIf="isLoggedIn" (createSuccess)="loadAuthors()"></app-create-author>
+    <p-button styleClass="p-button-text" icon="pi pi-refresh" [disabled]="authorsLoading" (click)="loadAuthors()"></p-button>
+  </div>
+</div>
+
+<app-authors-table [authors]="authors" [authorsLoading]="authorsLoading" (loadAuthors)="loadAuthors()"></app-authors-table>

@@ -1,0 +1,15 @@
+<p-button styleClass="p-button-text" icon="pi pi-trash" (click)="show()"></p-button>
+
+<p-dialog styleClass="m-2 w-full lg:w-4" header="Delete Publisher" [(visible)]="visibleDialog"
+          [draggable]="false" [resizable]="false" [modal]="true">
+
+  <div *ngIf="publisher" class="text-center">
+    <p>Do you want to Delete this Publisher?</p>
+    <div class="font-bold">{{ publisher.name }}</div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <p-button label="Yes" styleClass="p-button-text" [disabled]="isLoading" (click)="delete()"></p-button>
+    <p-button label="No" styleClass="p-button-text" (click)="this.visibleDialog = false"></p-button>
+  </ng-template>
+</p-dialog>

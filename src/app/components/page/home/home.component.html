@@ -1,0 +1,70 @@
+<div class="mx-4 lg:mx-8">
+  <h1>Books</h1>
+</div>
+
+<p-dataView layout="grid" [value]="filteredBooks" [paginator]="true" [rows]="4">
+  <ng-template pTemplate="header">
+    <div class="flex flex-column md:flex-row md:justify-content-between">
+      <div>
+        <span class="p-input-icon-left mb-2 mr-2 md:mb-0">
+            <i class="pi pi-search"></i>
+            <input [(ngModel)]="bookName" type="search" pInputText placeholder="Search by Book">
+        </span>
+        <span class="p-input-icon-left mb-2 mr-2 md:mb-0">
+            <i class="pi pi-search"></i>
+            <input [(ngModel)]="authorName" type="search" pInputText placeholder="Search by Author">
+        </span>
+        <span class="p-input-icon-left mb-2 md:mb-0">
+            <i class="pi pi-search"></i>
+            <input [(ngModel)]="publisherName" type="search" pInputText placeholder="Search by Publisher">
+        </span>
+      </div>
+      <p-dataViewLayoutOptions *ngIf="!booksLoading"></p-dataViewLayoutOptions>
+    </div>
+  </ng-template>
+
+  <ng-template let-book pTemplate="listItem">
+    <div class="col-12">
+      <div class="p-4">
+        <div class="flex">
+          <p-image styleClass="cursor-pointer" width="200" [routerLink]="['/', 'books', book.id]" [src]="book.image_link ?? 'https://via.placeholder.com/400x600'" [alt]="book.name"></p-image>
+          <div class="pl-4">
+            <h3><span class="uppercase">{{book.name}}</span></h3>
+            <h3 class="text-color-secondary">{{getBookAuthors(book)}}</h3>
+            <p>{{book.description}}</p>
+            <span>Published by <b>{{book.publisher?.name}}</b> in <b>{{book.publish_year}}</b>.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template let-book pTemplate="gridItem">
+    <div class="col-12 md:col-6 lg:col-3">
+      <p-card styleClass="shadow-none">
+        <div class="h-4rem">
+          <p-skeleton *ngIf="booksLoading" width="100%" height="2rem"></p-skeleton>
+          <div *ngIf="!booksLoading" class="text-center text-xl font-bold uppercase">{{book.name}}</div>
+        </div>
+
+        <div class="h-28rem flex align-content-center justify-content-center">
+          <div class="flex align-items-center text-center">
+            <p-skeleton *ngIf="booksLoading" width="16rem" height="20rem"></p-skeleton>
+            <p-image *ngIf="!booksLoading" styleClass="cursor-pointer" width="70%" [routerLink]="['/', 'books', book.id]" [src]="book.image_link ?? 'https://via.placeholder.com/400x600'" [alt]="book.name"></p-image>
+          </div>
+        </div>
+
+        <div class="h-2rem">
+          <p-skeleton *ngIf="booksLoading" styleClass="m-auto" width="60%" height="2rem"></p-skeleton>
+          <div *ngIf="!booksLoading && book.authors.length" class="text-color-secondary text-center font-bold">{{getBookAuthors(book)}}</div>
+          <div *ngIf="!book.authors.length" class="text-center">
+            <i class="pi pi-times"></i>
+          </div>
+        </div>
+      </p-card>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="empty">
+  </ng-template>
+</p-dataView>

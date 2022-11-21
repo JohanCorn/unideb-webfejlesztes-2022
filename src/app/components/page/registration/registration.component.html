@@ -1,0 +1,30 @@
+<div class="flex justify-content-center h-screen p-4">
+  <div class="m-auto col-12 lg:col-4">
+    <h1 class="text-center uppercase">Registration</h1>
+
+    <label for="name" class="block">Name</label>
+    <input id="name" type="text" class="w-full" pInputText
+           [(ngModel)]="name"
+           [disabled]="this.registrationInProgress"/>
+
+    <label for="email" class="block">Email</label>
+    <input id="email" type="email" class="w-full" pInputText
+           [(ngModel)]="email"
+           [disabled]="this.registrationInProgress"/>
+
+    <label for="password" class="block">Password</label>
+    <input id="password" type="password" class="w-full" pInputText
+           [(ngModel)]="password"
+           [disabled]="this.registrationInProgress"/>
+
+    <label for="password-confirmation" class="block">Password Confirmation</label>
+    <input id="password-confirmation" type="password" class="w-full" pInputText
+           [(ngModel)]="passwordConfirmation"
+           [disabled]="this.registrationInProgress"/>
+
+    <button label="Registration" class="w-full uppercase mt-4" pButton
+            [disabled]="this.registrationInProgress"
+            (click)="registration()"></button>
+    <p-messages [(value)]="messages"></p-messages>
+  </div>
+</div>

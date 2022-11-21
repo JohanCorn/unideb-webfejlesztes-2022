@@ -1,0 +1,15 @@
+<h1 class="text-center uppercase">
+  <div *ngIf="publisherLoading; else Publisher">
+    <p-skeleton width="40%" height="3rem" styleClass="m-auto"></p-skeleton>
+  </div>
+  <ng-template #Publisher>
+    {{ publisher?.name ?? 'Publisher NOT FOUND!' }}
+  </ng-template>
+</h1>
+
+<div *ngIf="publisher?.books?.length">
+  <div class="mx-4 lg:mx-8">
+    <h1>Books</h1>
+  </div>
+  <app-books-table [books]="publisher?.books ?? []" [showPublisher]="false"></app-books-table>
+</div>

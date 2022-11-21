@@ -1,0 +1,15 @@
+<h1 class="text-center uppercase">
+  <div *ngIf="authorLoading; else Author">
+    <p-skeleton width="40%" height="3rem" styleClass="m-auto"></p-skeleton>
+  </div>
+  <ng-template #Author>
+    {{ author?.name ?? 'Author NOT FOUND!' }}
+  </ng-template>
+</h1>
+
+<div *ngIf="author?.books?.length">
+  <div class="mx-4 lg:mx-8">
+    <h1>Books</h1>
+  </div>
+  <app-books-table [books]="author?.books ?? []" [showAuthors]="false"></app-books-table>
+</div>

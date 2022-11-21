@@ -1,0 +1,63 @@
+<p-table loadingIcon="" [value]="filteredPublishers" [loading]="publishersLoading" [scrollable]="true">
+  <ng-template pTemplate="caption">
+    <div class="flex justify-content-between">
+      <div>
+        <span class="p-input-icon-left mb-2 mr-2 md:mb-0">
+            <i class="pi pi-search"></i>
+            <input [(ngModel)]="publisherName" type="search" pInputText placeholder="Search by Publisher">
+        </span>
+        <span class="p-input-icon-left mb-2 mr-2 md:mb-0">
+            <i class="pi pi-search"></i>
+            <input [(ngModel)]="bookName" type="search" pInputText placeholder="Search by Book">
+        </span>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="header">
+    <tr>
+      <th id="code" class="text-center w-4rem">Code</th>
+      <th id="name">Name</th>
+      <th id="books">Books</th>
+      <th *ngIf="isLoggedIn" id="edit"></th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-publisher>
+    <tr>
+      <td class="text-center">
+        #{{ publisher.id }}
+      </td>
+      <td>
+        <a class="text-primary no-underline" [routerLink]="['/', 'publishers', publisher.id]">{{ publisher.name }}</a>
+      </td>
+      <td>
+        <span *ngIf="publisher.books.length" >{{ getPublisherBooks(publisher) }}</span>
+        <i *ngIf="!publisher.books.length" class="pi pi-times"></i>
+      </td>
+      <td *ngIf="isLoggedIn">
+        <div class="text-right">
+          <app-update-publisher [publisherId]="publisher.id" (updateSuccess)="loadPublishers.emit()"></app-update-publisher>
+          <app-delete-publisher [publisherId]="publisher.id" (deleteSuccess)="loadPublishers.emit()"></app-delete-publisher>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="loadingbody">
+    <tr *ngFor="let s of [1,2,3,4]">
+      <td>
+        <p-skeleton></p-skeleton>
+      </td>
+      <td>
+        <p-skeleton></p-skeleton>
+      </td>
+      <td>
+        <p-skeleton></p-skeleton>
+      </td>
+      <td *ngIf="isLoggedIn">
+        <p-skeleton></p-skeleton>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

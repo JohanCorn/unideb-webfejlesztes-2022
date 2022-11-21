@@ -1,0 +1,75 @@
+<p-table loadingIcon="" [value]="filteredBooks" [loading]="booksLoading" [scrollable]="true">
+  <ng-template pTemplate="caption">
+    <div class="flex justify-content-between">
+      <div>
+        <span class="p-input-icon-left mb-2 mr-2 md:mb-0">
+            <i class="pi pi-search"></i>
+            <input [(ngModel)]="bookName" type="search" pInputText placeholder="Search by Book">
+        </span>
+        <span *ngIf="showAuthors" class="p-input-icon-left mb-2 mr-2 md:mb-0">
+            <i class="pi pi-search"></i>
+            <input [(ngModel)]="authorName" type="search" pInputText placeholder="Search by Author">
+        </span>
+        <span *ngIf="showPublisher" class="p-input-icon-left mb-2 md:mb-0">
+            <i class="pi pi-search"></i>
+            <input [(ngModel)]="publisherName" type="search" pInputText placeholder="Search by Publisher">
+        </span>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="header">
+    <tr>
+      <th id="code" class="text-center w-4rem">Code</th>
+      <th id="name">Name</th>
+      <th *ngIf="showAuthors" id="authors">Authors</th>
+      <th *ngIf="showPublisher" id="publisher">Publisher</th>
+      <th *ngIf="isLoggedIn" id="edit"></th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-book>
+    <tr>
+      <td class="text-center">
+        #{{ book.id }}
+      </td>
+      <td>
+        <a class="text-primary no-underline" [routerLink]="['/', 'books', book.id]">{{ book.name }}</a>
+      </td>
+      <td *ngIf="showAuthors">
+        <span *ngIf="book.authors.length" >{{ getBookAuthors(book) }}</span>
+        <i *ngIf="!book.authors.length" class="pi pi-times"></i>
+      </td>
+      <td *ngIf="showPublisher">
+        <a *ngIf="book.publisher" class="text-primary no-underline" [routerLink]="['/', 'publishers', book.publisher.id]">{{ book.publisher.name }}</a>
+        <i *ngIf="!book.publisher" class="pi pi-times"></i>
+      </td>
+      <td *ngIf="isLoggedIn">
+        <div class="text-right">
+          <app-update-book [bookId]="book.id" (updateSuccess)="loadBooks.emit()"></app-update-book>
+          <app-delete-book [bookId]="book.id" (deleteSuccess)="loadBooks.emit()"></app-delete-book>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="loadingbody">
+    <tr *ngFor="let s of [1,2,3,4]">
+      <td>
+        <p-skeleton></p-skeleton>
+      </td>
+      <td>
+        <p-skeleton></p-skeleton>
+      </td>
+      <td *ngIf="showAuthors">
+        <p-skeleton></p-skeleton>
+      </td>
+      <td *ngIf="showPublisher">
+        <p-skeleton></p-skeleton>
+      </td>
+      <td *ngIf="isLoggedIn">
+        <p-skeleton></p-skeleton>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

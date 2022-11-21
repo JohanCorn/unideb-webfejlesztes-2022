@@ -1,0 +1,17 @@
+<p-button styleClass="p-button-text" icon="pi pi-plus" (click)="show()"></p-button>
+
+<p-dialog header="Create Author" styleClass="m-2 w-full lg:w-4" [(visible)]="visibleDialog"
+          [draggable]="false" [resizable]="false" [modal]="true">
+
+  <div *ngIf="author">
+    <span class="p-float-label mt-4">
+      <input id="name" type="text" class="w-full" pInputText [(ngModel)]="author.name" [disabled]="isLoading">
+      <label for="name">Name</label>
+    </span>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <p-button styleClass="p-button-text" icon="pi pi-save" label="Save"
+              [disabled]="isLoading" (click)="create()"></p-button>
+  </ng-template>
+</p-dialog>
