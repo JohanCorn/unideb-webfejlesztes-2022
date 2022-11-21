@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://johancorn.com/api'
+  apiUrl: 'https://unideb.johancorn.com/webfejlesztes-2022/api'
 };
