@@ -27,7 +27,7 @@ class UpdateBookRequest extends FormRequest
         return [
             'name' => 'required',
             'description' => 'nullable',
-            'image_url' => 'nullable',
+            'image_link' => 'nullable',
             'pages_num' => 'required|integer',
             'publish_year' => 'required|integer|between:1000,2050',
             'publisher_id' => [
