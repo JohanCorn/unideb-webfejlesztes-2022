@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('books', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->string('image_link')->nullable();
             $table->foreignId('publisher_id')->constrained()->cascadeOnDelete();
             $table->year('publish_year');
